@@ -4,6 +4,7 @@ using Coca_Patricia_lab2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Coca_Patricia_lab2.Migrations
 {
     [DbContext(typeof(Coca_Patricia_lab2Context))]
-    partial class Coca_Patricia_lab2ContextModelSnapshot : ModelSnapshot
+    [Migration("20231024145203_BookCategory")]
+    partial class BookCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,23 +23,6 @@ namespace Coca_Patricia_lab2.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Coca_Patricia_lab2.Models.Author", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("AuthorName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Author");
-                });
 
             modelBuilder.Entity("Coca_Patricia_lab2.Models.Book", b =>
                 {
@@ -47,11 +32,12 @@ namespace Coca_Patricia_lab2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int?>("AuthorID")
-                        .HasColumnType("int");
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<int?>("PublisherID")
                         .HasColumnType("int");
@@ -64,8 +50,6 @@ namespace Coca_Patricia_lab2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AuthorID");
 
                     b.HasIndex("PublisherID");
 
@@ -131,15 +115,9 @@ namespace Coca_Patricia_lab2.Migrations
 
             modelBuilder.Entity("Coca_Patricia_lab2.Models.Book", b =>
                 {
-                    b.HasOne("Coca_Patricia_lab2.Models.Author", "Author")
-                        .WithMany("Books")
-                        .HasForeignKey("AuthorID");
-
                     b.HasOne("Coca_Patricia_lab2.Models.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherID");
-
-                    b.Navigation("Author");
 
                     b.Navigation("Publisher");
                 });
@@ -161,11 +139,6 @@ namespace Coca_Patricia_lab2.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Coca_Patricia_lab2.Models.Author", b =>
-                {
-                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("Coca_Patricia_lab2.Models.Book", b =>

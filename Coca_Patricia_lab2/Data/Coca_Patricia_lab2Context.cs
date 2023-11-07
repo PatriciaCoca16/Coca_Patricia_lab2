@@ -17,5 +17,9 @@ namespace Coca_Patricia_lab2.Data
         public DbSet<Coca_Patricia_lab2.Models.Book> Book { get; set; } = default!;
 
         public DbSet<Coca_Patricia_lab2.Models.Publisher>? Publisher { get; set; }
+
+        public DbSet<Coca_Patricia_lab2.Models.Category>? Category { get; set; }
+
+        public DbSet<Coca_Patricia_lab2.Models.Author>? Author { get; set; }
     }
 }
