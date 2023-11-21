@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Coca_Patricia_lab2.Data;
 using Coca_Patricia_lab2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Coca_Patricia_lab2.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : BookCategoriesPageModel
     {
         private readonly Coca_Patricia_lab2.Data.Coca_Patricia_lab2Context _context;
